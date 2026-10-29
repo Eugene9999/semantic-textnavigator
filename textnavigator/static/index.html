@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TextNavigator — условия поставки</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="TextNavigator, главная"><span class="brand-icon">N</span><span>TextNavigator<span class="brand-caption">ПРОВЕРКА УСЛОВИЙ ПОСТАВКИ</span></span></a>
+  <div class="local"><span class="dot"></span> Документы остаются на вашем компьютере</div>
+</header>
+<main>
+  <section class="intro"><div><div class="eyebrow">РАБОЧЕЕ МЕСТО ЗАКУПЩИКА</div><h1>Условия. С опорой на источник.</h1><p>Суммы, сроки и изменения договоров — на выбранную дату.</p></div><div class="date-box"><label for="as-of">Дата проверки</label><input id="as-of" type="date" value="2026-03-10" required></div></section>
+  <section class="upload-bar" aria-label="Загрузка документов">
+    <div class="upload-copy"><span class="upload-icon">↑</span><div><strong id="file-label">Загрузите комплект документов</strong><span>TXT в UTF-8 · до 30 файлов · до 1 МБ каждый</span></div></div>
+    <div class="actions"><button id="demo" class="button secondary">Открыть учебный комплект</button><label class="button secondary file-button">Выбрать TXT<input id="files" type="file" accept=".txt,text/plain" multiple></label><button id="analyze" class="button primary" disabled>Проверить условия <span>→</span></button></div>
+  </section>
+  <div id="selected-files" class="selected-files"></div>
+  <div class="engine-row"><span id="engine-status" role="status">Подключаем локальную модель…</span><label class="fallback"><input type="checkbox" id="rules-only"> Только правила, без смыслового поиска</label></div>
+  <div id="notice" class="notice" role="status" hidden></div>
+  <div id="error" class="error" role="alert" hidden></div>
+  <section id="empty" class="empty"><div class="empty-mark">↗</div><h2>От документа — к проверенному условию</h2><p>Добавьте договоры, допсоглашения и письма.<br>У каждого результата будет цитата и переход к исходному тексту.</p><div class="steps"><span><b>01</b> Загрузите документы</span><span><b>02</b> Проверьте условия</span><span><b>03</b> Откройте основание</span></div></section>
+  <section id="workspace" hidden>
+    <div class="stats"><div><strong id="stat-contracts">0</strong><span>договора в комплекте</span></div><div><strong id="stat-proposals">0</strong><span>несогласованных предложений</span></div><div><strong id="stat-attention">0</strong><span>полей требуют внимания</span></div><span id="run-info" class="run-info"></span></div>
+    <div id="warnings" class="warnings"></div>
+    <div class="workspace-grid">
+      <div class="left-column">
+        <section class="panel contracts-panel">
+          <div class="panel-heading"><div><h2>Действующие условия</h2><span id="as-of-caption" class="subtle"></span></div><span class="badge green">Проверяемые источники</span></div>
+          <div class="filters"><label for="before">Поставка раньше</label><input type="date" id="before" value="2026-04-01"><button class="button small secondary" id="filter">Применить</button><button class="text-button" id="reset-filter" hidden>Сбросить</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Договор / поставщик</th><th>Сумма, ₽</th><th>Срок поставки</th></tr></thead><tbody id="contracts"></tbody></table></div>
+          <p class="table-note" id="table-note">Нажмите на сумму или срок, чтобы проверить основание.</p>
+        </section>
+        <section class="panel proposals-panel"><div class="panel-heading"><div><h2>Ожидают согласования</h2><span class="subtle">Эти предложения не изменяют действующие условия.</span></div><span class="badge amber" id="proposal-count">0</span></div><div id="proposals"></div></section>
+        <section class="panel search-panel"><div class="panel-heading"><div><h2>Найти в документах</h2><span class="subtle">Поиск по смыслу. Найденный фрагмент может относиться к проекту или прошлому условию.</span></div></div><form id="search-form"><label class="sr-only" for="query">Что найти в документах</label><input id="query" placeholder="Например: ответственность за задержку поставки" maxlength="500" required><label class="sr-only" for="search-contract">Договор для поиска</label><select id="search-contract"><option value="">Все договоры</option></select><button class="button primary" id="search-button" type="submit">Найти</button></form><p id="search-note" class="subtle">Результаты поиска помогают найти пункт, но не определяют его применимость.</p><div id="search-results"></div></section>
+      </div>
+      <aside class="panel source-panel" id="source-panel" aria-label="Основание и исходный текст">
+        <div class="panel-heading"><div><div class="eyebrow">ПРОВЕРКА ПО ИСТОЧНИКУ</div><h2 id="source-title">Исходные документы</h2></div></div>
+        <div id="evidence-detail" class="evidence-detail"><p class="subtle">Выберите сумму или срок в таблице слева.</p></div>
+        <div class="source-toolbar"><label for="source-select">Документ</label><select id="source-select"></select><div id="source-meta"></div></div>
+        <div id="source-text" class="source-text" tabindex="0"></div>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><span>Semantic TextNavigator · локальный прототип</span><span>Действующие условия определяются по статусу документов и дате проверки.</span></footer>
+</body>
+</html>
